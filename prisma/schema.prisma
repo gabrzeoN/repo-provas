@@ -52,7 +52,6 @@ model Teacher {
 
 model TeacherDiscipline {
   id Int @id @default(autoincrement())
-  name String @unique
   tests Test[]
   teacherId Int
   teacher Teacher @relation(fields: [teacherId], references: [id])
@@ -65,7 +64,7 @@ model Category {
   id Int @id @default(autoincrement())
   name String @unique
   tests Test[]
-  @@map("Categorys")
+  @@map("categories")
 }
 
 model Test {
