@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 
 const login = {
     email: faker.internet.email(),
-    password: faker.internet.password(10)
+    password: faker.internet.password(12)
 };
 
 const wrongLoginEmail = {

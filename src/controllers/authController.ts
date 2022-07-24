@@ -11,5 +11,5 @@ export async function signUp(req: Request, res: Response) {
 export async function signIn(req: Request, res: Response) {
     const { email, password } : authRepository.UserSignInData = req.body;
     const token = await authService.signIn({ email, password });
-    return res.status(200).send(token);
+    return res.status(200).send({token});
 }
