@@ -56,3 +56,14 @@ export async function createTest(newTest: testRepository.InputData ) {
     await testRepository.insert(newTestInsertData);
     return;
 }
+
+export async function visualizeByDiscipline() {
+    const terms = await testRepository.getAllByTerms();
+    return terms;
+}
+
+export async function visualizeByTeachers() {
+    return;
+}
+
+
