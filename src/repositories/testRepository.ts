@@ -2,7 +2,7 @@ import { Test } from "@prisma/client";
 import prisma from "../config/database.js";
 
 export type TestCreationData = Omit<Test, "id">
-export type InputData = { teacher: string, category: string } & 
+export type InputData = { teacher: string, category: string, discipline: string } & 
     Omit<Test, "id" | "teacherDisciplineId" | "categoryId">
 
 // export async function getUserByEmail(email:string) {

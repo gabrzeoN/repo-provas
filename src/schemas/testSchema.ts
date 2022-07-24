@@ -2,9 +2,9 @@ import joi from "joi";
 import { InputData } from "../repositories/testRepository";
 
 export const creationSchema = joi.object<InputData>({
-    // name: joi.string().required(),
-    // pdfUrl: joi.string().uri().required(),
-    // category: joi.string().valid('Projeto', 'Prática', 'Recuperação').required(),
-    // discipline: joi.string().required(),
-    // teacher: joi.string().required()
+    name: joi.string().max(30).required(),
+    pdfUrl: joi.string().uri().max(1000).required(),
+    category: joi.string().max(30).required(),
+    discipline: joi.string().max(30).required(),
+    teacher: joi.string().max(30).required()
 });
