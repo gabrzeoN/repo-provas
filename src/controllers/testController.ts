@@ -9,11 +9,11 @@ export async function createTest(req: Request, res: Response) {
 }
 
 export async function visualizeByDiscipline(req: Request, res: Response) {
-    const terms = await testService.visualizeByDiscipline();
-    return res.status(200).send({terms});
+    const tests = await testService.visualizeByDiscipline();
+    return res.status(200).send({tests});
 }
 
 export async function visualizeByTeachers(req: Request, res: Response) {
-    const teachers = await testService.visualizeByTeachers();
-    return res.status(200).send({teachers});
+    const tests = await testService.visualizeByTeachers();
+    return res.status(200).send({tests});
 }

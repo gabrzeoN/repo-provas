@@ -1,4 +1,5 @@
 import * as testRepository from "./../repositories/testRepository.js";
+import * as termRepository from "./../repositories/termRepository.js";
 import * as teacherRepository from "./../repositories/teacherRepository.js";
 import * as categoryRepository from "./../repositories/categoryRepository.js";
 import * as disciplineRepository from "./../repositories/disciplineRepository.js";
@@ -57,14 +58,49 @@ export async function createTest(newTest: testRepository.InputData ) {
     return;
 }
 
+function removeTeacherDiscipline(categories){
+    categories.map((category) => {
+        category.tests?.map((test) => {
+            test.teacher = test?.teacherDiscipline?.teacher?.name;
+            test.discipline = test?.teacherDiscipline?.discipline?.name;
+            test.term = test.teacherDiscipline?.discipline?.term?.number;
+            delete test?.teacherDiscipline;
+        });
+    });
+    return categories;
+}
+
+function joinTestCategory(categories){
+    const tests = [];
+    for(let i = 0; i < categories.length; i++){
+        for(let j = 0; j < categories[i].tests.length; j++){
+            tests.push({
+                ...categories[i].tests[j],
+                category: categories[i]?.name
+            });
+        }
+    }
+    return tests;
+}
+
+function joinTermCategory(terms, categories){
+    const tests = [];
+    for(let i = 0; i < categories.length; i++){
+        for(let j = 0; j < categories[i].tests.length; j++){
+            
+        }
+    }
+    return tests;
+}
+
 export async function visualizeByDiscipline() {
-    const terms = await testRepository.getAllByTerms();
-    return terms;
+    // const terms = await testRepository.getAllTermsDisciplines();
+    const categories = await testRepository.getAllCategories();
+    removeTeacherDiscipline(categories);
+    const tests = joinTestCategory(categories);
+    return tests;
 }
 
 export async function visualizeByTeachers() {
-    const teachers = await testRepository.getAllByTeachers();
-    return teachers;
-}
-
-
+        return await visualizeByDiscipline();
+    }

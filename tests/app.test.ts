@@ -8,6 +8,7 @@ import chalk from "chalk";
 beforeEach(async () => {
     await prisma.$executeRaw`DELETE from sessions;`;
     await prisma.$executeRaw`DELETE from users;`;
+    await prisma.$executeRaw`DELETE from tests;`;
 });
 
 describe("POST /sign-up", () => {
@@ -115,6 +116,30 @@ describe("POST /test", () => {
         const test = testFactory.teacherDoesNotLecturesDiscipline;
         const response = await supertest(app).post("/test").send(test).set("Authorization", `Bearer ${token}`);
         expect(response.statusCode).toEqual(409);
+    });
+});
+
+describe("GET /test", () => {
+    it("get tests organized by disciplines, 200", async () => {
+        const login = userFactory.login;
+        await supertest(app).post("/sign-up").send(login);
+        const loginData = await supertest(app).post("/sign-in").send(login);
+        const token = loginData.body.token;
+        const test = testFactory.test;
+        await supertest(app).post("/test").send(test).set("Authorization", `Bearer ${token}`);
+        const response = await supertest(app).get("/test/disciplines").set("Authorization", `Bearer ${token}`);
+        expect(response.statusCode).toEqual(200);
+    });
+
+    it("get tests organized by teachers, 200", async () => {
+        const login = userFactory.login;
+        await supertest(app).post("/sign-up").send(login);
+        const loginData = await supertest(app).post("/sign-in").send(login);
+        const token = loginData.body.token;
+        const test = testFactory.test;
+        await supertest(app).post("/test").send(test).set("Authorization", `Bearer ${token}`);
+        const response = await supertest(app).get("/test/teachers").set("Authorization", `Bearer ${token}`);
+        expect(response.statusCode).toEqual(200);
     });
 });
 
