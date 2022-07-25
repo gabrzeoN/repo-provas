@@ -14,6 +14,6 @@ export async function visualizeByDiscipline(req: Request, res: Response) {
 }
 
 export async function visualizeByTeachers(req: Request, res: Response) {
-    const terms = await testService.visualizeByTeachers();
-    return res.status(200).send({terms});
+    const teachers = await testService.visualizeByTeachers();
+    return res.status(200).send({teachers});
 }

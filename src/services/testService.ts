@@ -63,7 +63,8 @@ export async function visualizeByDiscipline() {
 }
 
 export async function visualizeByTeachers() {
-    return;
+    const teachers = await testRepository.getAllByTeachers();
+    return teachers;
 }
 
 
